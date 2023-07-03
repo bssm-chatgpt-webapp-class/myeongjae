@@ -2,9 +2,9 @@ import "./index.css";
 
 const ChatItem = ({ imageLink, text }) => {
   return (
-    <div className="question">
-      <img className="question-profile" src={imageLink} alt="img" />
-      <div>{text}</div>
+    <div className="chat-item">
+      <img className="user-profile" src={imageLink} alt="img" />
+      <pre>{text}</pre>
     </div>
   );
 };
