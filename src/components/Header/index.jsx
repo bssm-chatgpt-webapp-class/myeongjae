@@ -1,9 +1,13 @@
+import { Hambug } from "../../icons";
+import { PlusIcon } from "../../icons/";
+import "./index.css";
+
 const Header = () => {
   return (
-    <div>
-      <div>hamburger</div>
+    <div className="header">
+      <Hambug />
       <div>New Chat</div>
-      <div>plus</div>
+      <PlusIcon />
     </div>
   );
 };
