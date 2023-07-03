@@ -2,14 +2,15 @@ import { useRef, useState } from "react";
 import { SendIcon } from "../../icons";
 import "./index.css";
 
-const TextField = ({ setQuestion }) => {
+const TextField = ({ sendChat }) => {
   const inputRef = useRef(null);
   return (
     <div className="text-field">
       <input ref={inputRef} />
       <SendIcon
         onClick={() => {
-          setQuestion(inputRef.current.value);
+          sendChat(inputRef.current.value);
+          inputRef.current.value = "";
         }}
       />
     </div>

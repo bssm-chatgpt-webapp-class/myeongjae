@@ -1,22 +1,17 @@
-import { chatgptResponse, profileImage } from "../../fixtures";
+import { profileImage } from "../../fixtures";
 import ChatItem from "../ChatItem";
 import "./index.css";
 
-const Main = ({ question }) => {
+const Main = ({ chatMessages, question }) => {
   return (
     <div className="main">
-      <ChatItem imageLink={profileImage} text="asdfasdfasdf" />
-      <ChatItem imageLink="/images/chatGPT.png" text={chatgptResponse} />
-      <ChatItem imageLink={profileImage} text="asdfasdfasdf" />
-      <ChatItem imageLink="/images/chatGPT.png" text={chatgptResponse} />
-      <ChatItem imageLink={profileImage} text="asdfasdfasdf" />
-      <ChatItem imageLink="/images/chatGPT.png" text={chatgptResponse} />
-      <ChatItem imageLink={profileImage} text="asdfasdfasdf" />
-      <ChatItem imageLink="/images/chatGPT.png" text={chatgptResponse} />
-      <ChatItem imageLink={profileImage} text="asdfasdfasdf" />
-      <ChatItem imageLink="/images/chatGPT.png" text={chatgptResponse} />
-      <ChatItem imageLink={profileImage} text="asdfasdfasdf" />
-      <ChatItem imageLink="/images/chatGPT.png" text={chatgptResponse} />
+      {chatMessages.map((item, idx) => (
+        <ChatItem
+          key={idx}
+          imageLink={item.isMine ? profileImage : "/images/chatGPT.png"}
+          text={item.message}
+        />
+      ))}
     </div>
   );
 };
