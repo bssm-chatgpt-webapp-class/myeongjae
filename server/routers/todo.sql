@@ -1,0 +1,7 @@
+CREATE TABLE todo (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    todo TEXT NOT NULL,
+    completed BOOLEAN NOT NULL DEFAULT false
+)
+
+INSERT INTO todo("todo1", true)
