@@ -10,7 +10,6 @@ Connection.linkConnection();
 router.post("", validateToken, async function (req, res) {
   try {
     const connection = Connection.getConnection();
-    console.log(req.user);
 
     await connection.execute(
       `insert into todo(todo, completed, authorId) values(?, ?, ?)`,
@@ -24,7 +23,6 @@ router.post("", validateToken, async function (req, res) {
 });
 
 router.get("", async function (req, res) {
-  console.log(process.env.JWT_SECRET);
   const connection = Connection.getConnection();
   const [rows] = await connection.execute("select * from todo");
 
@@ -58,7 +56,9 @@ router.delete("/:id", validateToken, todoAuthChecker, async (req, res) => {
       req.user.id,
     ]);
     res.json("success");
-  } catch {}
+  } catch {
+    console.log("delete error");
+  }
 });
 
 module.exports = router;

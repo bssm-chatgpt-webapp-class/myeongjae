@@ -17,8 +17,6 @@ const validateToken = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.log("asdfhawoefj");
-    console.log(error);
     return res.status(403).json("invalid token");
   }
 };
@@ -32,8 +30,7 @@ const todoAuthChecker = async (req, res, next) => {
     );
     if (results[0].authorId !== req.user.id) throw new Error("Unauthorized");
     next();
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
     return res.status(401).json("unauthorized");
   }
 };

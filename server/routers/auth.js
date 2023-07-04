@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Connection = require("../models/connector");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 Connection.linkConnection();
 
@@ -11,12 +12,13 @@ Connection.linkConnection();
 router.post("/signin", async function (req, res) {
   const { email, pw } = req.body;
   const connection = Connection.getConnection();
-  const [[row]] = await connection.execute(
-    "select * from user where email=? and pw=?",
-    [email, pw]
-  );
+  const [[row]] = await connection.execute("select * from user where email=?", [
+    email,
+  ]);
 
-  if (row) {
+  const isAuthorized = await bcrypt.compare(pw, row.pw);
+
+  if (isAuthorized) {
     let token = jwt.sign(
       { id: row.id, email, exp: Math.floor(Date.now() / 1000) + 60 * 60 },
       "aiwufebcaniwediafaweopfjwoiefawoepokfowepokfpanojfiwekfpkaka;woffwnaof"
@@ -27,10 +29,15 @@ router.post("/signin", async function (req, res) {
   }
 });
 
-router.post("/signup", function (req, res) {
+router.post("/signup", async function (req, res) {
   const { email, pw } = req.body;
   const connection = Connection.getConnection();
-  connection.execute("insert into user(email, pw) values(?, ?)", [email, pw]);
+  const encryptedPw = await bcrypt.hash(pw, 10);
+  console.log(encryptedPw);
+  connection.execute("insert into user(email, pw) values(?, ?)", [
+    email,
+    encryptedPw,
+  ]);
 
   res.json("success");
 });
