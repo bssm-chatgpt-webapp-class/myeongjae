@@ -1,5 +1,6 @@
 // get the client
 const mysql = require("mysql2/promise");
+const MYSQL = require("../config/env");
 
 class Connection {
   constructor() {}
@@ -8,10 +9,10 @@ class Connection {
   static async linkConnection() {
     if (this.connection === null) {
       this.connection = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "bssmProject",
-        password: "1029384756",
+        host: MYSQL.MYSQL_HOST,
+        user: MYSQL.MYSQL_USER,
+        database: MYSQL.MYSQL_DB,
+        password: MYSQL.MYSQL_PW,
       });
     }
   }
